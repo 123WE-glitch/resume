@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>李琪 — 个人简历</title>
+<style>
+  :root {
+    --primary: #1a56db;
+    --primary-light: #e8f0fe;
+    --text: #1f2937;
+    --text-secondary: #4b5563;
+    --bg: #f9fafb;
+    --card: #ffffff;
+    --border: #e5e7eb;
+    --tag-bg: #eff6ff;
+    --tag-text: #1e40af;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 36px 40px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  }
+  .header-avatar {
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .header-info h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .header-info .subtitle {
+    color: var(--text-secondary);
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  .header-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+  .header-contact span {
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+
+  /* ── Section Cards ── */
+  .section {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 28px 40px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
+  }
+  .section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--primary-light);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-title .icon {
+    font-size: 20px;
+  }
+
+  /* ── Education ── */
+  .edu-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .edu-school { font-weight: 700; font-size: 15px; }
+  .edu-date  { color: var(--text-secondary); font-size: 13px; white-space: nowrap; }
+  .edu-major { color: var(--text-secondary); font-size: 14px; margin-top: 2px; }
+  .edu-stats {
+    display: flex; flex-wrap: wrap;
+    gap: 8px 24px;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  .edu-stat { font-weight: 500; }
+  .edu-stat em {
+    font-style: normal; color: var(--primary); font-weight: 700;
+  }
+
+  /* ── Courses ── */
+  .courses {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .courses strong { color: var(--text); }
+
+  /* ── Experience Item ── */
+  .exp-item {
+    margin-bottom: 20px;
+    padding-left: 18px;
+    border-left: 3px solid var(--primary-light);
+    transition: border-color .2s;
+  }
+  .exp-item:hover { border-left-color: var(--primary); }
+  .exp-item:last-child { margin-bottom: 0; }
+  .exp-header {
+    display: flex; justify-content: space-between;
+    flex-wrap: wrap; gap: 6px;
+  }
+  .exp-title {
+    font-weight: 700; font-size: 15px;
+  }
+  .exp-date {
+    color: var(--text-secondary); font-size: 13px; white-space: nowrap;
+  }
+  .exp-award {
+    display: inline-block;
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 12px;
+    padding: 2px 10px;
+    border-radius: 10px;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  .exp-detail {
+    margin-top: 6px;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+  }
+  .exp-detail p { margin-bottom: 4px; }
+  .exp-detail strong { color: var(--text); }
+  .exp-link {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--primary);
+    text-decoration: none;
+  }
+  .exp-link:hover { text-decoration: underline; }
+
+  /* ── Tags / Skills ── */
+  .tags {
+    display: flex; flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+
+  /* ── Simple List ── */
+  .simple-list {
+    list-style: none;
+    font-size: 14px;
+  }
+  .simple-list li {
+    padding: 5px 0;
+    display: flex; align-items: baseline;
+    gap: 8px;
+  }
+  .simple-list li::before {
+    content: "▸";
+    color: var(--primary);
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  /* ── Two-column ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 640px) {
+    .two-col { grid-template-columns: 1fr; }
+    .header { flex-direction: column; text-align: center; }
+    .header-contact { justify-content: center; }
+    .section { padding: 20px 24px; }
+    .header { padding: 24px; }
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    color: #9ca3af;
+    font-size: 12px;
+    margin-top: 24px;
+  }
+  .footer a { color: #9ca3af; }
+
+  /* Print */
+  @media print {
+    body { background: #fff; }
+    .container { max-width: 100%; padding: 0; }
+    .section, .header { box-shadow: none; border: 1px solid #e5e7eb; }
+    .exp-item:hover { border-left-color: var(--primary-light); }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ═══ Header ═══ -->
+  <div class="header">
+    <div class="header-avatar">李</div>
+    <div class="header-info">
+      <h1>李 琪</h1>
+      <div class="subtitle">电子科学与技术 · 嵌入式 / 计算机视觉</div>
+      <div class="header-contact">
+        <span>📧 2023050007@buct.edu.cn</span>
+        <span>📱 17723234171</span>
+        <span>🌐 <a href="https://github.com/123WE-glitch" style="color:inherit">github.com/123WE-glitch</a></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Education ═══ -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🎓</span> 教育背景</div>
+    <div class="edu-row">
+      <span class="edu-school">北京化工大学（211） 数理学院</span>
+      <span class="edu-date">2023.09 – 至今</span>
+    </div>
+    <div class="edu-major">电子科学与技术 专业</div>
+    <div class="edu-stats">
+      <span class="edu-stat">GPA：<em>3.82</em> / 4.0（均分 90.34）</span>
+      <span class="edu-stat">排名：<em>8</em> / 104</span>
+      <span class="edu-stat">英语六级：<em>444</em></span>
+    </div>
+    <div class="courses">
+      <strong>主干课程：</strong>电路原理（90）· 数学物理方法（100）· 信号与系统（95）· 嵌入式原理及基础（100）· 数字电子基础（88）· 模拟电子基础（78）· 电子课程设计（A-）· 大规模集成电路基础（92）
+    </div>
+  </div>
+
+  <!-- ═══ Competition & Research ═══ -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🏆</span> 竞赛与科研</div>
+
+    <!-- 电赛 -->
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-title">全国大学生电子设计竞赛 C 题 — 单目视觉测量装置</span>
+        <span class="exp-date">2025.08</span>
+      </div>
+      <span class="exp-award">🏅 全国二等奖 · 北京赛区一等奖</span>
+      <div class="exp-detail">
+        <p><strong>项目成果：</strong>完成纯单目视觉高精度目标测量装置（无激光/ToF/超声波辅助），实现 100–200cm 范围内目标距离与几何尺寸的精准测量，同时完成整机电流、实时功耗、峰值功耗监测。</p>
+        <p><strong>负责工作：</strong>算法设计及程序编写 — 使用 OpenCV 实现基于轮廓检测的 A4 边框自动定位算法，在边框内部运用图形特征检测三角形、正方形、圆形的边长/直径测量；运用模板匹配实现数字识别；利用仿射变换对旋转图形进行矫正测量。硬件搭建 — 使用 Fusion 360 进行 3D 打印结构件设计，参与焊接与装配。</p>
+        <a class="exp-link" href="https://github.com/123WE-glitch/diansai-vision-measurement" target="_blank">📂 项目开源代码 →</a>
+      </div>
+      <div class="tags">
+        <span class="tag">OpenCV</span><span class="tag">Python</span><span class="tag">单目视觉</span><span class="tag">轮廓检测</span><span class="tag">仿射变换</span><span class="tag">模板匹配</span><span class="tag">MaixCAM</span><span class="tag">3D打印</span>
+      </div>
+    </div>
+
+    <!-- 光电赛 -->
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-title">全国大学生光电设计竞赛 — 光电智能对抗小车</span>
+        <span class="exp-date">2025.07</span>
+      </div>
+      <span class="exp-award">🏅 华北赛区二等奖</span>
+      <div class="exp-detail">
+        <p><strong>项目成果：</strong>完成一体化光电智能对抗小车，集成激光发射、光电探测、视觉识别、智能避障与自主对抗系统，可在指定场地完成全自动竞技任务。</p>
+        <p><strong>负责工作：</strong>Python 脚本编写 — 使用 MaixCAM 快速采集图片数据集；参与 YOLOv8 模型训练与部署；STM32C8T6 + 电机驱动模块控制小车运动及舵机实时瞄准。硬件 — 小车外壳 3D 建模打印；嘉立创 EDA 绘制 PCB 并打板。</p>
+      </div>
+      <div class="tags">
+        <span class="tag">YOLOv8</span><span class="tag">MaixCAM</span><span class="tag">STM32</span><span class="tag">Python</span><span class="tag">PCB设计</span><span class="tag">3D建模</span>
+      </div>
+    </div>
+
+    <!-- 科研经历 -->
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-title">科研经历 — 土壤元素快速检测仪 + 中国国际创新创业大赛</span>
+        <span class="exp-date">2025.07</span>
+      </div>
+      <span class="exp-award">🏅 北京市三等奖</span>
+      <div class="exp-detail">
+        <p><strong>项目成果：</strong>制作快速检测土壤元素含量的便携仪器，完成实地检测验证。</p>
+        <p><strong>负责工作：</strong>架构设计；利用红外光谱仪采集数据并通过单片机实时处理与显示；实地检测学校地块元素含量并分析结论。</p>
+      </div>
+      <div class="tags">
+        <span class="tag">红外光谱</span><span class="tag">单片机</span><span class="tag">嵌入式</span><span class="tag">传感器</span>
+      </div>
+    </div>
+
+    <!-- 数学竞赛 -->
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-title">全国大学生数学竞赛 + 部分地区物理竞赛</span>
+        <span class="exp-date">2024.12</span>
+      </div>
+      <span class="exp-award">🏅 数学初赛一等奖 · 物理三等奖</span>
+      <div class="exp-detail">
+        <p>加深对微积分、大学物理的理解以及计算能力，提高对跨领域数学原理的探索兴趣与分析解决问题能力。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ Other Awards ═══ -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📋</span> 其他获奖</div>
+    <div class="two-col">
+      <ul class="simple-list">
+        <li><span><strong>亚太数学建模竞赛</strong> — 三等奖 <span style="color:#9ca3af;font-size:12px">2025.12</span></span></li>
+        <li><span><strong>麦思杯数学科普竞赛</strong> — 北京市三等奖 <span style="color:#9ca3af;font-size:12px">2024.11</span></span></li>
+        <li><span><strong>校人文竞赛</strong> — 二等奖 <span style="color:#9ca3af;font-size:12px">2025.09</span></span></li>
+        <li><span><strong>全国大学生市场调查大赛</strong> <span style="color:#9ca3af;font-size:12px">2024</span></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══ Activities ═══ -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🤝</span> 实践活动</div>
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-title">班级组织委员</span>
+        <span class="exp-date">2024.09 – 至今</span>
+      </div>
+      <div class="exp-detail"><p>负责班级劳育活动及团建活动的策划与组织。</p></div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-header">
+        <span class="exp-title">学风社团志愿者 & 讲师</span>
+        <span class="exp-date">2024.09 – 至今</span>
+      </div>
+      <div class="exp-detail"><p>编写学习资料供同学期末复习使用，为同学答疑解惑。</p></div>
+    </div>
+  </div>
+
+  <!-- ═══ Honors ═══ -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🎖️</span> 奖励荣誉</div>
+    <div class="two-col">
+      <ul class="simple-list">
+        <li>2023–2024 人民奖学金</li>
+        <li>2024–2025 李文杨燕奖学金</li>
+        <li>2023–2024 国家励志奖学金</li>
+        <li>2024–2025 素质拓展奖学金</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    李琪 · 北京化工大学 电子科学与技术 · <a href="mailto:2023050007@buct.edu.cn">2023050007@buct.edu.cn</a>
+  </div>
+
+</div>
+</body>
+</html>
