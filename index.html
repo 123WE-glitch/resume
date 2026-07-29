@@ -270,7 +270,7 @@
   <!-- ═══ Hero ═══ -->
   <div class="hero" id="about">
     <div class="hero-avatar-wrap">
-      <img class="hero-avatar" src="1.png" alt="李琪">
+      <img class="hero-avatar" src="1.jpg" alt="李琪">
       <div class="hero-avatar-caption">✨ 理想中的自己</div>
     </div>
     <div class="hero-info">
@@ -473,16 +473,24 @@
     var dotsEl = document.getElementById('awardDots');
     var total = 10;
     var current = 0;
+    var cache = {};
 
     if (!img || !dotsEl) return;
 
-    // Preload all images
-    var preloaded = [];
-    for (var i = 0; i < total; i++) {
-      var pre = new Image();
-      pre.src = 'award_' + (i + 1) + '.jpg';
-      preloaded.push(pre);
+    // Preload next N images
+    function preload(from, count) {
+      for (var i = from; i < from + count; i++) {
+        var idx = i % total;
+        if (!cache[idx]) {
+          var pre = new Image();
+          pre.src = 'award_' + (idx + 1) + '.jpg';
+          cache[idx] = pre;
+        }
+      }
     }
+
+    // Load current + next 2
+    preload(0, 3);
 
     // Create dots
     for (var i = 0; i < total; i++) {
@@ -499,8 +507,9 @@
     function showSlide(idx) {
       dots[current].classList.remove('active');
       current = idx;
-      img.src = preloaded[current].src;
+      img.src = 'award_' + (current + 1) + '.jpg';
       dots[current].classList.add('active');
+      preload(current + 2, 1); // Keep 2 ahead
     }
 
     setInterval(function() {
