@@ -473,6 +473,15 @@
 
     if (!img || !dotsEl) return;
 
+    // Preload all images
+    var preloaded = [];
+    for (var i = 0; i < total; i++) {
+      var pre = new Image();
+      pre.src = 'award_' + (i + 1) + '.jpg';
+      preloaded.push(pre);
+    }
+
+    // Create dots
     for (var i = 0; i < total; i++) {
       var dot = document.createElement('span');
       dot.className = 'award-dot' + (i === 0 ? ' active' : '');
@@ -487,7 +496,7 @@
     function showSlide(idx) {
       dots[current].classList.remove('active');
       current = idx;
-      img.src = 'award_' + (current + 1) + '.jpg';
+      img.src = preloaded[current].src;
       dots[current].classList.add('active');
     }
 
