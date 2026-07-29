@@ -85,18 +85,6 @@
     background: rgba(255,255,255,.85);
     padding: 2px 8px; border-radius: 4px;
   }
-  .award-slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    transition: opacity .6s ease;
-  }
-  .award-slide.active { opacity: 1; }
-  .award-slide img {
-    width: 100%; height: 100%;
-    object-fit: contain;
-    border-radius: 10px;
-  }
   .award-dots {
     position: absolute; bottom: 8px; left: 0; right: 0;
     display: flex; justify-content: center; gap: 5px;
@@ -106,6 +94,7 @@
     width: 6px; height: 6px;
     border-radius: 50%;
     background: rgba(0,0,0,.2);
+    cursor: pointer;
     transition: background .3s;
   }
   .award-dot.active { background: #b8943c; }
@@ -294,16 +283,7 @@
 
     <!-- 荣誉展示 -->
     <div class="award-carousel" id="awardCarousel">
-      <div class="award-slide active"><img src="award_1.jpg" alt="奖状 1"></div>
-      <div class="award-slide"><img src="award_2.jpg" alt="奖状 2"></div>
-      <div class="award-slide"><img src="award_3.jpg" alt="奖状 3"></div>
-      <div class="award-slide"><img src="award_4.jpg" alt="奖状 4"></div>
-      <div class="award-slide"><img src="award_5.jpg" alt="奖状 5"></div>
-      <div class="award-slide"><img src="award_6.jpg" alt="奖状 6"></div>
-      <div class="award-slide"><img src="award_7.jpg" alt="奖状 7"></div>
-      <div class="award-slide"><img src="award_8.jpg" alt="奖状 8"></div>
-      <div class="award-slide"><img src="award_9.jpg" alt="奖状 9"></div>
-      <div class="award-slide"><img src="award_10.jpg" alt="奖状 10"></div>
+      <img id="awardImg" src="award_1.jpg" alt="荣誉证书" style="width:100%;height:100%;object-fit:contain;border-radius:10px;">
       <div class="award-dots" id="awardDots"></div>
     </div>
   </div>
@@ -486,34 +466,34 @@
 <script>
   // ── Award Carousel ──
   (function() {
-    var slides = document.querySelectorAll('#awardCarousel .award-slide');
+    var img = document.getElementById('awardImg');
     var dotsEl = document.getElementById('awardDots');
+    var total = 10;
     var current = 0;
-    var total = slides.length;
-    if (!total) return;
 
-    // Create dots
+    if (!img || !dotsEl) return;
+
     for (var i = 0; i < total; i++) {
       var dot = document.createElement('span');
       dot.className = 'award-dot' + (i === 0 ? ' active' : '');
-      dot.onclick = (function(idx) { return function() { showSlide(idx); }; })(i);
+      dot.setAttribute('data-idx', i);
+      dot.onclick = function() {
+        showSlide(parseInt(this.getAttribute('data-idx')));
+      };
       dotsEl.appendChild(dot);
     }
     var dots = dotsEl.querySelectorAll('.award-dot');
 
     function showSlide(idx) {
-      slides[current].classList.remove('active');
       dots[current].classList.remove('active');
       current = idx;
-      slides[current].classList.add('active');
+      img.src = 'award_' + (current + 1) + '.jpg';
       dots[current].classList.add('active');
     }
 
-    function nextSlide() {
+    setInterval(function() {
       showSlide((current + 1) % total);
-    }
-
-    setInterval(nextSlide, 3000);
+    }, 3000);
   })();
 </script>
 </body>
