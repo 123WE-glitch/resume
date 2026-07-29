@@ -89,30 +89,26 @@
     position: absolute;
     inset: 0;
     opacity: 0;
-    animation: awardFade 30s infinite;
+    transition: opacity .6s ease;
   }
-  .award-slide:nth-child(1)  { animation-delay: 0s; }
-  .award-slide:nth-child(2)  { animation-delay: 3s; }
-  .award-slide:nth-child(3)  { animation-delay: 6s; }
-  .award-slide:nth-child(4)  { animation-delay: 9s; }
-  .award-slide:nth-child(5)  { animation-delay: 12s; }
-  .award-slide:nth-child(6)  { animation-delay: 15s; }
-  .award-slide:nth-child(7)  { animation-delay: 18s; }
-  .award-slide:nth-child(8)  { animation-delay: 21s; }
-  .award-slide:nth-child(9)  { animation-delay: 24s; }
-  .award-slide:nth-child(10) { animation-delay: 27s; }
-  @keyframes awardFade {
-    0%   { opacity: 0; }
-    2%   { opacity: 1; }
-    8%   { opacity: 1; }
-    10%  { opacity: 0; }
-    100% { opacity: 0; }
-  }
+  .award-slide.active { opacity: 1; }
   .award-slide img {
     width: 100%; height: 100%;
     object-fit: contain;
     border-radius: 10px;
   }
+  .award-dots {
+    position: absolute; bottom: 8px; left: 0; right: 0;
+    display: flex; justify-content: center; gap: 5px;
+    z-index: 3;
+  }
+  .award-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(0,0,0,.2);
+    transition: background .3s;
+  }
+  .award-dot.active { background: #b8943c; }
   .hero-avatar-wrap {
     display: flex; flex-direction: column; align-items: center;
     flex-shrink: 0;
@@ -297,17 +293,18 @@
     </div>
 
     <!-- 荣誉展示 -->
-    <div class="award-carousel">
-      <div class="award-slide"><img src="award_1.jpg" alt="奖状"></div>
-      <div class="award-slide"><img src="award_2.jpg" alt="奖状"></div>
-      <div class="award-slide"><img src="award_3.jpg" alt="奖状"></div>
-      <div class="award-slide"><img src="award_4.jpg" alt="奖状"></div>
-      <div class="award-slide"><img src="award_5.jpg" alt="奖状"></div>
-      <div class="award-slide"><img src="award_6.jpg" alt="奖状"></div>
-      <div class="award-slide"><img src="award_7.jpg" alt="奖状"></div>
-      <div class="award-slide"><img src="award_8.jpg" alt="奖状"></div>
-      <div class="award-slide"><img src="award_9.jpg" alt="奖状"></div>
-      <div class="award-slide"><img src="award_10.jpg" alt="奖状"></div>
+    <div class="award-carousel" id="awardCarousel">
+      <div class="award-slide active"><img src="award_1.jpg" alt="奖状 1"></div>
+      <div class="award-slide"><img src="award_2.jpg" alt="奖状 2"></div>
+      <div class="award-slide"><img src="award_3.jpg" alt="奖状 3"></div>
+      <div class="award-slide"><img src="award_4.jpg" alt="奖状 4"></div>
+      <div class="award-slide"><img src="award_5.jpg" alt="奖状 5"></div>
+      <div class="award-slide"><img src="award_6.jpg" alt="奖状 6"></div>
+      <div class="award-slide"><img src="award_7.jpg" alt="奖状 7"></div>
+      <div class="award-slide"><img src="award_8.jpg" alt="奖状 8"></div>
+      <div class="award-slide"><img src="award_9.jpg" alt="奖状 9"></div>
+      <div class="award-slide"><img src="award_10.jpg" alt="奖状 10"></div>
+      <div class="award-dots" id="awardDots"></div>
     </div>
   </div>
 
@@ -486,5 +483,38 @@
   </p>
 
 </div>
+<script>
+  // ── Award Carousel ──
+  (function() {
+    var slides = document.querySelectorAll('#awardCarousel .award-slide');
+    var dotsEl = document.getElementById('awardDots');
+    var current = 0;
+    var total = slides.length;
+    if (!total) return;
+
+    // Create dots
+    for (var i = 0; i < total; i++) {
+      var dot = document.createElement('span');
+      dot.className = 'award-dot' + (i === 0 ? ' active' : '');
+      dot.onclick = (function(idx) { return function() { showSlide(idx); }; })(i);
+      dotsEl.appendChild(dot);
+    }
+    var dots = dotsEl.querySelectorAll('.award-dot');
+
+    function showSlide(idx) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = idx;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+    }
+
+    function nextSlide() {
+      showSlide((current + 1) % total);
+    }
+
+    setInterval(nextSlide, 3000);
+  })();
+</script>
 </body>
 </html>
